@@ -1,0 +1,39 @@
+#manifest
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-deployment
+spec:
+  selector:
+    matchLabels:
+      app: fastapi-server
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: fastapi-server
+    spec:
+      containers:
+      - name: fastapi-container
+        #image: gcr.io/tensorflow-serving/resnet 
+        image: wendy24/fastapiml:latest
+        ports:
+        - containerPort: 8501
+
+      imagePullSecrets:
+      - name: wendyvp
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: fastapi-service
+  name: fastapi-service
+spec:
+  ports:
+  - port: 8501
+    targetPort: 8501
+  selector:
+    app: fastapi-server
+  type: LoadBalancer
