@@ -16,9 +16,9 @@ spec:
       containers:
       - name: fastapi-container
         #image: gcr.io/tensorflow-serving/resnet 
-        image: wendy24/fastapiml:latest
+        image: docker.io/wendy24/fastapiml:latest
         ports:
-        - containerPort: 8501
+        - containerPort: 80
 
       imagePullSecrets:
       - name: wendyvp
@@ -32,8 +32,8 @@ metadata:
   name: fastapi-service
 spec:
   ports:
-  - port: 8501
-    targetPort: 8501
+  - port: 80
+    targetPort: 80
   selector:
     app: fastapi-server
   type: LoadBalancer
