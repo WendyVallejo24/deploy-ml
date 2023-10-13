@@ -17,4 +17,4 @@ jobs:
     - name: python version
       run: python --version
     - name: pip install
-      run: python install -requirements.txt
+      run: python install -r requirements.txt
