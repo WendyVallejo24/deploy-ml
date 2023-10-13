@@ -2,27 +2,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fastapi-deployment
+  name: {model_name}-deployment
 spec:
   selector:
     matchLabels:
-      app: fastapi-server
+      app: {model_name}-server
   replicas: 1
   template:
     metadata:
       labels:
-        app: fastapi-server
+        app: {model_name}-server
     spec:
       containers:
-      - name: fastapi-container
+      - name: {model_name}-container
         #image: gcr.io/tensorflow-serving/resnet 
-        image: docker.io/wendy24/fastapiml:latest
+        image: docker.io/{docker_user}/{model_name}:{github.sha}
         ports:
         - containerPort: 80
-
-      imagePullSecrets:
-      - name: wendyvp
-
 ---
 apiVersion: v1
 kind: Service
